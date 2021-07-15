@@ -9,7 +9,7 @@
             :class="[
               'routerlink',
               'px-2','pb-1',
-              currentRouteName == route.name || (route.name != 'Home' && $route.path.includes(route.path))
+              currentRouteName == route.name || (route.name != 'Utils' && $route.path.includes(route.path))
                 ? 'activeRoute'
                 : '',
             ]"

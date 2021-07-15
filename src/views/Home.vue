@@ -33,6 +33,7 @@
       </TabSwitch>
       <div class="props">
         <ul>
+           <li>enable dark mode with attribute dark</li>
           <li>tabSelectors:Tabselector[]</li>
           <li>selectedTabSelector:Tabselector ({{ selectedTabSelector }})</li>
           <li>uses <b>v-slot</b> to render inside the box</li>
@@ -44,6 +45,7 @@
       <div class="props">
         <ul>
           <li>id </li>
+           <li>enable dark mode with attribute dark</li>
           <li>minDate: Dayjs (the minimal date to select)</li>
           <li>maxDate: Dayjs (the maximal date to select)</li>
           <li>disableFuture:boolean (disables the selection of future dates)</li>
