@@ -4,9 +4,11 @@
       <div
         v-for="tabSelector in tabSelectors"
         :key="tabSelector.displayName"
+        tabindex="1"
         class="tablink p-2 pointer"
         :class="{ active: tabSelector.value == ownSelection.value }"
         @click="tabchange(tabSelector)"
+        @keydown.enter="tabchange(tabSelector)"
       >
         {{ tabSelector.displayName }}
       </div>

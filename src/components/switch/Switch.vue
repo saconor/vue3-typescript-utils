@@ -1,5 +1,5 @@
 <template>
-  <div class="switch pointer" :style="switchColor" @click="toggleChecked">
+  <div class="switch pointer" tabindex="1" :style="switchColor" @click="toggleChecked" @keydown.enter="toggleChecked">
     <div :id="switchId" class="d-flex position-relative">
       <div class="d-flex">
         <div :id="switchId + '_true_label'" class="labelTrue" v-if="labelTrue != ''">
