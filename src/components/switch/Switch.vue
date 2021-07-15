@@ -74,7 +74,7 @@ export default class Switch extends Vue {
       labelFalseElement.style.color = this.unCheckedTextColor;
     }
 
-    if (this.switchWidth < 40) this.switchWidth = 40;
+    if (this.switchWidth < 30) this.switchWidth = 30;
 
     const switchElement = document.getElementById(this.switchId);
 
@@ -110,9 +110,9 @@ export default class Switch extends Vue {
     const slider = document.getElementById(this.switchId + '_check_box');
     if (slider) {
       if (this.ownChecked) {
-        slider.style.left = this.switchWidth - 10 + 'px';
+        slider.style.left = this.switchWidth - 9 + 'px';
         slider.style.background = '#333333';
-        slider.style.width = '10px';
+        slider.style.minWidth = '10px';
         slider.style.transitionProperty = 'left';
         slider.style.transitionDuration = '0.2s';
       } else {
@@ -126,7 +126,7 @@ export default class Switch extends Vue {
       labelFalseElement?.classList.remove('d-none');
       labelTrueElement?.classList.add('d-none');
     }
-    this.$emit('checkedChange', { checked: this.ownChecked });
+    this.$emit('update:checked', this.ownChecked);
   }
 
   mounted(): void {

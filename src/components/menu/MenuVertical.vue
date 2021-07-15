@@ -1,5 +1,5 @@
 <template>
-  <div id="menuBar" class="h-100">
+  <div id="menuBar" class="h-100 d-flex">
     <div class="menu d-flex flex-column">
       <div class="">
 
@@ -28,13 +28,14 @@
           >
             <router-link class="d-flex ps-1" :to="route.path">
               <div :title="route.name">
-                <span style="font-size: 2rem" class="material-icons"> {{ route.meta.icon }} </span>
+                <span style="font-size: 2rem" class="material-icons" v-if="route.meta"> {{ route.meta.icon }} </span>
+                <div class="" v-else>icon</div>
               </div>
               <div class="ms-2 align-self-center" v-if="shown">{{ route.name }}</div>
             </router-link>
           </li>
           <hr />
-         <li>other links</li>
+        
         </div>
 
         <div class="pointer position-absolute w-100 p-2" style="bottom: 0px" @click="shown = !shown">
@@ -63,7 +64,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 @Options({})
-export default class Menu extends Vue {
+export default class MenuVertical extends Vue {
   shown = true;
   //Hack exisitiert im router immer, aber typescript weis das nicht
   get currentRouteName(): any {

@@ -1,16 +1,26 @@
 <template>
-  <div class="datepicker position-relative" :id="id">
+  <div class="position-relative datepicker"  :class="[useDarkMode? 'datepicker-dark':'datepicker-light',disabled?'disabled':'']" :id="id">
     <div class="input_field position-relative">
       <div class="mx-2" :id="id">{{ selectedDate.format('DD.MM.YYYY HH:mm') }}</div>
 
       <div class="position-absolute" style="right: 0px; top: 0px">
         <img
+        v-if="useDarkMode"
           tabindex="1"
           style="height: 1.4rem"
           class="d-inline pointer"
           @click="toggleShowDateSelector()"
           @keydown.enter="toggleShowDateSelector()"
-          src="../assets/icons/calendarclock2.svg"
+          src="@/assets/icons/calendarclock_white.svg"
+        />
+         <img
+        v-else
+          tabindex="1"
+          style="height: 1.4rem"
+          class="d-inline pointer"
+          @click="toggleShowDateSelector()"
+          @keydown.enter="toggleShowDateSelector()"
+          src="@/assets/icons/calendarclock_dark.svg"
         />
       </div>
     </div>
@@ -20,17 +30,14 @@
       <div class="d-flex">
         <input
           type="number"
-          min="1"
+       
           tabindex="1"
-          :max="new Date(yearSelect, monthSelect, 0).getDate()"
           style="width: 3rem"
           v-model="daySelect"
           @change="valueChange"
         />
         <select
           tabindex="1"
-          name=""
-          id=""
           v-model="monthSelect"
           @change="
             valueChange();
@@ -58,8 +65,6 @@
           tabindex="1"
           type="number"
           style="width: 3rem"
-          min="0"
-          max="23"
           class="ms-3"
           v-model="hourSelect"
           @change="valueChange"
@@ -68,8 +73,6 @@
           type="number"
           tabindex="1"
           style="width: 3rem"
-          min="0"
-          max="59"
           v-model="minuteSelect"
           @change="valueChange"
         />
@@ -114,19 +117,23 @@ export default class DatePicker extends Vue {
   hourSelect = 0;
   minuteSelect = 0;
 
+  useDarkMode = false
+  disabled = false
+
   readonly uniqueIdentifier: string = this.generateUniqueId();
 
   /**
    * Toggles the visibility of this instance and hide all other instances od Datepicker
    */
   toggleShowDateSelector(): void {
+    if(!this.disabled){
     const showDateSelectorBefore = this.showDateSelector;
     let allDatePickers: any[] = [];
     Object.keys(window.datepickers).forEach(datePickerKey => {
       allDatePickers = [...allDatePickers, ...window.datepickers[datePickerKey]];
     });
     allDatePickers.forEach(datepicker => datepicker.hide());
-    this.showDateSelector = !showDateSelectorBefore;
+    this.showDateSelector = !showDateSelectorBefore;}
   }
 
   /**
@@ -170,6 +177,38 @@ export default class DatePicker extends Vue {
    *
    */
   valueChange(): void {
+
+    if(this.minuteSelect <0){
+      this.minuteSelect = 59
+      this.hourSelect -= 1
+    }
+    if(this.minuteSelect >59){
+      this.minuteSelect = 0
+      this.hourSelect += 1
+    }
+
+    if(this.hourSelect <0){
+      this.hourSelect = 23
+      this.daySelect -= 1
+    }
+    if(this.hourSelect >23){
+      this.hourSelect = 0
+      this.daySelect += 1
+    }
+
+
+    if(this.daySelect <=0){   
+      this.monthSelect -= 1;
+      if(this.monthSelect <=0){
+        this.monthSelect = 11
+        this.yearSelect -= 1
+      }
+      this.daySelect = new Date(this.yearSelect, this.monthSelect, 0).getDate()
+      console.log(this.daySelect,this.monthSelect)
+    }
+
+
+
     let buildDate =
       `${this.formatIntegerTwoDigits(this.daySelect)}.${this.formatIntegerTwoDigits(this.monthSelect)}.${
         this.yearSelect
@@ -177,10 +216,10 @@ export default class DatePicker extends Vue {
 
     let newDate = dayjs(buildDate, 'DD.MM.YYYY hh:mm');
 
-    const otherInstancePickerDate = window.datepickers[this.instance]
-      .filter((datepicker: any) => datepicker.id != this.uniqueIdentifier)[0]
-      .getValue();
     if (this.instance > 0) {
+      const otherInstancePickerDate = window.datepickers[this.instance]
+        .filter((datepicker: any) => datepicker.id != this.uniqueIdentifier)[0]
+        .getValue();
       const currentStartDateGreaterThanEndDate = this.isStart && otherInstancePickerDate.diff(newDate, 'minute') < 0;
       const currentEndDateLowerThanStartDate = this.isEnd && newDate.diff(otherInstancePickerDate, 'minute') <= 0;
 
@@ -212,6 +251,16 @@ export default class DatePicker extends Vue {
   }
 
   mounted(): void {
+
+    
+      if((this.$attrs["dark"] != undefined)){
+        this.useDarkMode = true
+      }
+
+      if((this.$attrs["disabled"] != undefined)){
+        this.disabled = true
+      }
+
     this.selectedDate = this.day;
     this.setupSelection(this.day);
 
@@ -241,19 +290,39 @@ export default class DatePicker extends Vue {
 </script>
 
 <style scoped>
+
+.pointer{
+  cursor: pointer;
+}
 .input_field {
   border: 1px solid grey;
   height: 1.8rem;
   min-width: 13rem;
   max-width: 13rem;
 }
-.dateSelector {
-  background-color: rgb(60, 62, 65);
-  border: 1px solid grey;
+
+.datepicker.disabled .input_field {
+ background-color: rgba(211, 211, 211, 0.377);
+}
+
+
+.datepicker .dateSelector{
+   border: 1px solid grey;
   left: 0px;
   top: 1.8rem;
   z-index: 30;
   margin-left: -0.5rem;
   border-radius: 5px;
 }
+
+
+
+.datepicker-dark .dateSelector {
+  background-color: rgb(60, 62, 65);
+}
+
+.datepicker-light .dateSelector {
+  background-color: rgba(211, 211, 211, 0.377);
+}
+
 </style>
