@@ -137,6 +137,10 @@ export default class GenericTable<T = any> extends Vue {
 </script>
 
 <style scoped>
+.pointer{
+  cursor: pointer;
+}
+
 .generic-table{
   position: relative;
 }

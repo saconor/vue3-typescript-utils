@@ -73,7 +73,7 @@ export default class TableCheck extends Vue {
     tableFields.push(
       generateField<TestData>("Id", "id", {
         clickable: true,
-        clickfkt: (data: TestData) => { alert("click at "+data)},
+        clickfkt: (data: TestData) => { alert("click at "+data.id)},
       })
     );
     tableFields.push(
