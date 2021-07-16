@@ -1,4 +1,4 @@
 export interface TabSelector {
-    displayName: string;
-    value: string;
-  }
+  displayName: string;
+  value: string;
+}

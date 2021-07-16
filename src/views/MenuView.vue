@@ -1,8 +1,15 @@
 <template>
   <div class="d-flex flex-column w-100">
     <h3>Styles</h3>
-    <div class="">To change the Menue Style, adapt the <b>App.vue</b> as follows</div>
-    <div class="pb-3"> <b @click="$router.push('/router')" style="cursor:pointer"> Routercheck</b> to add Menu Entries</div>
+    <div class="">
+      To change the Menue Style, adapt the <b>App.vue</b> as follows
+    </div>
+    <div class="pb-3">
+      <b @click="$router.push('/router')" style="cursor: pointer">
+        Routercheck</b
+      >
+      to add Menu Entries
+    </div>
     <h4>Horizontal</h4>
     <pre>
      &lt;div id="<b>contentDividerHorizontal</b>"&gt;

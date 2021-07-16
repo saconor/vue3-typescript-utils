@@ -14,4 +14,4 @@ export interface TableFields<T> {
   formatter?: (value: T) => string;
   htmlFormatter?: (value: T) => string;
 }
-export interface GenerateFieldOptions<T> extends Omit<TableFields<T>, "id" | "title"> { }
+export type GenerateFieldOptions<T> = Omit<TableFields<T>, "id" | "title">;

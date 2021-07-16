@@ -1,5 +1,5 @@
 <template>
- <div id="contentDividerHorizontal">
+  <div id="contentDividerHorizontal">
     <div id="menuSidebarHorizontal">
       <MenuHorizontal />
     </div>
@@ -14,19 +14,18 @@
 //Farben:   color: #2c3e50;
 // color: rgb(7, 187, 88);
 
-import { Options, Vue } from 'vue-class-component';
-import MenuVertical from '@/components/menu/MenuVertical.vue';
-import MenuHorizontal from '@/components/menu/MenuHorizontal.vue';
+import { Options, Vue } from "vue-class-component";
+import MenuVertical from "@/components/menu/MenuVertical.vue";
+import MenuHorizontal from "@/components/menu/MenuHorizontal.vue";
 
 @Options({
-  components: { MenuHorizontal,MenuVertical },
+  components: { MenuHorizontal, MenuVertical },
 })
 export default class App extends Vue {}
 </script>
 
 <style>
-
-@import url('~bootstrap/dist/css/bootstrap.css');
+@import url("~bootstrap/dist/css/bootstrap.css");
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -41,14 +40,15 @@ export default class App extends Vue {}
 
 /* fallback */
 @font-face {
-  font-family: 'Material Icons';
+  font-family: "Material Icons";
   font-style: normal;
   font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/materialicons/v92/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+  src: url(https://fonts.gstatic.com/s/materialicons/v92/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2)
+    format("woff2");
 }
 
 .material-icons {
-  font-family: 'Material Icons';
+  font-family: "Material Icons";
   font-weight: normal;
   font-style: normal;
   font-size: 24px;
@@ -59,8 +59,8 @@ export default class App extends Vue {}
   white-space: nowrap;
   word-wrap: normal;
   direction: ltr;
-  font-feature-settings: 'liga';
-  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: "liga";
+  -webkit-font-feature-settings: "liga";
   -webkit-font-smoothing: antialiased;
 }
 

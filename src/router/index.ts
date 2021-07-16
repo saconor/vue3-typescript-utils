@@ -24,7 +24,8 @@ const routes: Array<RouteRecordRaw> = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/RouterCheck.vue"),
-  },{
+  },
+  {
     path: "/table",
     name: "Tables",
     // route level code-splitting
@@ -32,7 +33,7 @@ const routes: Array<RouteRecordRaw> = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/TableCheck.vue"),
-  }
+  },
 ];
 
 const router = createRouter({

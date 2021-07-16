@@ -33,7 +33,7 @@
       </TabSwitch>
       <div class="props">
         <ul>
-           <li>enable dark mode with attribute dark</li>
+          <li>enable dark mode with attribute dark</li>
           <li>tabSelectors:Tabselector[]</li>
           <li>selectedTabSelector:Tabselector ({{ selectedTabSelector }})</li>
           <li>uses <b>v-slot</b> to render inside the box</li>
@@ -41,26 +41,60 @@
       </div>
       <h3>DateTimePicker</h3>
 
-      <DateTimePicker/>
+      <DateTimePicker />
+
       <div class="props">
+        can be disabled with attribute disabled
         <ul>
-          <li>id </li>
-           <li>enable dark mode with attribute dark</li>
+          <li>id</li>
+          <li>enable dark mode with attribute dark</li>
           <li>minDate: Dayjs (the minimal date to select)</li>
           <li>maxDate: Dayjs (the maximal date to select)</li>
-          <li>disableFuture:boolean (disables the selection of future dates)</li>
+          <li>
+            disableFuture:boolean (disables the selection of future dates)
+          </li>
         </ul>
-        <div class=""> Wenn als <b>"DateRange Picker"</b> (2 Picker in einer Instance)</div>
+        <div class="">
+          Wenn als <b>"DateRange Picker"</b> (2 Picker in einer Instance)
+        </div>
         <ul>
-          <li>id </li>
-          <li>minDate:Dayjs used for the first selector, first selector is also the minimalDate for the end selector</li>
-          <li>maxDate:Dayjs used for the last selector, last selector is also the maximalDate for the first selector</li>
-          <li>disableFuture:boolean (disables the selection of future dates), only  for the end selector</li>
-          <li>instance: number sets the incance for the daterangepicker, only two pickers can share an instance</li>
-          <li>isStart:boolean defines the start picker for an dateRangePicker</li>
-          <li>isEnd:boolean defines the end picker for an dateRangePicker</li></ul>
+          <li>id</li>
+          <li>
+            minDate:Dayjs used for the first selector, first selector is also
+            the minimalDate for the end selector
+          </li>
+          <li>
+            maxDate:Dayjs used for the last selector, last selector is also the
+            maximalDate for the first selector
+          </li>
+          <li>
+            disableFuture:boolean (disables the selection of future dates), only
+            for the end selector
+          </li>
+          <li>
+            instance: number sets the incance for the daterangepicker, only two
+            pickers can share an instance
+          </li>
+          <li>
+            isStart:boolean defines the start picker for an dateRangePicker
+          </li>
+          <li>isEnd:boolean defines the end picker for an dateRangePicker</li>
+        </ul>
+      </div>
+    
+   <h3>Cards</h3>
+    <Card :cardData="cardData" :additionalCss="'width:20rem' "/>
+    <div class="props">
+        <ul>
+          <li>enable dark mode with attribute dark</li>
+          <li>tabSelectors:Tabselector[]</li>
+          <li>selectedTabSelector:Tabselector ({{ selectedTabSelector }})</li>
+          <li>uses <b>v-slot</b> to render inside the box</li>
+        </ul>
       </div>
     </div>
+
+   
   </div>
 </template>
 
@@ -70,6 +104,9 @@ import Switch from "../components/switch/Switch.vue";
 import TabSwitch from "../components/tab-switcher/TabSwitch.vue";
 import { TabSelector } from "../components/tab-switcher/tabSwitch";
 import DateTimePicker from "../components/dateTimePicker/DateTimePicker.vue";
+import Card from "../components/cards/Card.vue";
+import {CardObject} from "@/components/cards/cards"
+
 import dayjs, { Dayjs } from "dayjs";
 
 @Options({
@@ -77,6 +114,7 @@ import dayjs, { Dayjs } from "dayjs";
     Switch,
     TabSwitch,
     DateTimePicker,
+    Card,
   },
 })
 export default class Home extends Vue {
@@ -89,6 +127,24 @@ export default class Home extends Vue {
   checkedTextColor = "#fff";
   uncheckedTextColor = "#000";
 
+  get cardData():CardObject{
+    return {
+      header:{
+        title:"Test Header",
+      },
+      body:{
+        text:"This is a sample text",
+        additionalData:[ {key:"test",value:"test"},{key:"test2",value:"test2"},{key:"test3",value:"test3"}],
+        additionalSections:[{text:"test4"},{text:"test5"}]
+      },
+      footer:{
+        content:"footer",
+        buttonTitle:"click Me",
+        buttonFunktion:(value:CardObject)=>{alert("test")}
+      }
+    }
+  }
+
   //tab-switch
   tabselectors: TabSelector[] = [
     { displayName: "tab1", value: "tab1" },
@@ -97,19 +153,18 @@ export default class Home extends Vue {
   selectedTabSelector = { displayName: "tab1", value: "tab1" };
 
   //) }) day: Dayjs = dayjs();
-minDate: Dayjs = dayjs()
-maxDate: Dayjs = dayjs()
-instance = 0;
-id = '';
-isStart = false;
-isEnd = false;
-disableFuture = false;
+  minDate: Dayjs = dayjs();
+  maxDate: Dayjs = dayjs();
+  instance = 0;
+  id = "";
+  isStart = false;
+  isEnd = false;
+  disableFuture = false;
 }
 </script>
 
-
 <style scoped>
-.props{
+.props {
   padding-bottom: 20px;
 }
 </style>

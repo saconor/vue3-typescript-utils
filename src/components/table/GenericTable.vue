@@ -1,8 +1,17 @@
 <template>
-  <div class="generic-table" :class="[useDarkMode?'genericTableDark':'genericTableLight']">
+  <div
+    class="generic-table"
+    :class="[useDarkMode ? 'genericTableDark' : 'genericTableLight']"
+  >
     <div class="paginationHeader" v-if="paginated">
       <div class="d-flex">
-        <button class="btn-light" :disabled="pageNumber == 1" @click="pageChange('pageChanged', 'prev')">prev</button>
+        <button
+          class="btn-light"
+          :disabled="pageNumber == 1"
+          @click="pageChange('pageChanged', 'prev')"
+        >
+          prev
+        </button>
         <input
           type="number"
           style="width: 5rem"
@@ -19,10 +28,15 @@
         >
           next
         </button>
-        <div class="ms-5 align-self-center">von {{ Math.ceil(maxEntries / pageSize) }}</div>
+        <div class="ms-5 align-self-center">
+          von {{ Math.ceil(maxEntries / pageSize) }}
+        </div>
       </div>
     </div>
-    <table class="table  table-hover mb-0" :class="[useDarkMode?'table-dark':'table-light']">
+    <table
+      class="table table-hover mb-0"
+      :class="[useDarkMode ? 'table-dark' : 'table-light']"
+    >
       <thead>
         <tr v-if="fields.length > 0">
           <th class="" v-for="tableField in fields" :key="tableField">
@@ -40,25 +54,43 @@
             class="align-middle"
           >
             <div class="" v-if="!tableField.htmlFormatter">
-              {{ tableField.formatter ? tableField.formatter(dataEntry) : dataEntry[tableField.id] }}
+              {{
+                tableField.formatter
+                  ? tableField.formatter(dataEntry)
+                  : dataEntry[tableField.id]
+              }}
             </div>
-            <div class="" v-else v-html="tableField.htmlFormatter(dataEntry)"></div>
+            <div
+              class=""
+              v-else
+              v-html="tableField.htmlFormatter(dataEntry)"
+            ></div>
           </td>
         </tr>
       </tbody>
     </table>
     <div class="d-flex pt-2 pb-2 paginationFooter" v-if="paginated">
-      <input type="number" name="" min="1" max="maxEntries" v-model="ownPageSize" style="width: 5rem" id="" />
-      <button class="btn-light ms-2" @click="emitEvent('parameterChanged', {})">fetch</button>
-      <div class="ms-5 align-self-center" >von {{ maxEntries }}</div>
+      <input
+        type="number"
+        name=""
+        min="1"
+        max="maxEntries"
+        v-model="ownPageSize"
+        style="width: 5rem"
+        id=""
+      />
+      <button class="btn-light ms-2" @click="emitEvent('parameterChanged', {})">
+        fetch
+      </button>
+      <div class="ms-5 align-self-center">von {{ maxEntries }}</div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import { Prop, Watch } from 'vue-property-decorator';
-import { TableFields } from './types';
+import { Options, Vue } from "vue-class-component";
+import { Prop, Watch } from "vue-property-decorator";
+import { TableFields } from "./types";
 
 @Options({})
 export default class GenericTable<T = any> extends Vue {
@@ -67,7 +99,7 @@ export default class GenericTable<T = any> extends Vue {
   @Prop({ required: true, type: Object as () => T }) tableData!: T[];
 
   //Pagination
-  @Prop({ required: false, type: Boolean, default:false }) paginated!:boolean;
+  @Prop({ required: false, type: Boolean, default: false }) paginated!: boolean;
   @Prop({ required: false, type: Number }) pageSize!: number;
   @Prop({ required: false, type: Number }) pageNumber!: number;
   @Prop({ required: false, type: Number }) maxEntries!: number;
@@ -81,12 +113,12 @@ export default class GenericTable<T = any> extends Vue {
    * Since i keep copies the values pageSize and pageNumber in ownPageNumber and ownPageSize,
    * i need to keep them in sync with their original values -> Watchers
    */
-  @Watch('pageSize')
+  @Watch("pageSize")
   updatePageSize(to: number, from: number) {
     this.ownPageSize = to;
   }
 
-  @Watch('pageNumber')
+  @Watch("pageNumber")
   updatePageNumber(to: number, from: number) {
     this.ownPageNumber = to;
   }
@@ -96,11 +128,11 @@ export default class GenericTable<T = any> extends Vue {
   }
 
   pageChange(eventName: string, changeType: string) {
-    if (changeType == 'next') {
-      console.log('next');
+    if (changeType == "next") {
+      console.log("next");
       this.ownPageNumber += 1;
-    } else if (changeType == 'prev') {
-      console.log('prev');
+    } else if (changeType == "prev") {
+      console.log("prev");
 
       this.ownPageNumber -= 1;
     }
@@ -126,9 +158,9 @@ export default class GenericTable<T = any> extends Vue {
   }
 
   mounted(): void {
-      if((this.$attrs["dark"] != undefined)){
-        this.useDarkMode = true
-      }
+    if (this.$attrs["dark"] != undefined) {
+      this.useDarkMode = true;
+    }
 
     this.ownPageSize = this.pageSize;
     this.ownPageNumber = this.pageNumber;
@@ -137,36 +169,33 @@ export default class GenericTable<T = any> extends Vue {
 </script>
 
 <style scoped>
-.pointer{
+.pointer {
   cursor: pointer;
 }
 
-.generic-table{
+.generic-table {
   position: relative;
 }
-
 
 .generic-table .paginationFooter {
   padding-bottom: 5px;
 }
 .generic-table.genericTableLight .paginationFooter {
-  color:black;
+  color: black;
 }
 
 .generic-table.genericTableDark .paginationFooter {
-  color:white;
+  color: white;
 }
 
 .generic-table .paginationHeader {
   padding-bottom: 5px;
 }
 .generic-table.genericTableLight .paginationHeader {
-  color:black;
+  color: black;
 }
 
 .generic-table.genericTableDark .paginationHeader {
-  color:white;
+  color: white;
 }
-
-
 </style>

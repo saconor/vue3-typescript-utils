@@ -1,8 +1,12 @@
-import { GenerateFieldOptions, TableFields } from './types';
+import { GenerateFieldOptions, TableFields } from "./types";
 
 type Nullable<T> = T | null;
 
-export function generateField<T>(title: string, id: string, options: GenerateFieldOptions<T>): TableFields<T> {
+export function generateField<T>(
+  title: string,
+  id: string,
+  options: GenerateFieldOptions<T>
+): TableFields<T> {
   const tablefield: TableFields<T> = {
     title: title,
     id: id,

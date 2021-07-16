@@ -1,47 +1,59 @@
 <template>
   <div id="menuBar" class="w-100">
     <div class="menu">
-     
+      <div
+        class="logo pe-3 ps-3 pt-1 pb-1"
+        v-if="shown"
+        @click="$router.push('/')"
+      >
+        Logo
+      </div>
 
-        <div class="logo pe-3 ps-3 pt-1 pb-1" v-if="shown" @click="$router.push('/')">Logo</div>
-      
-          <li
-            :class="[
-              'routerlink',
-              'px-2','pb-1',
-              currentRouteName == route.name || (route.name != 'Utils' && $route.path.includes(route.path))
-                ? 'activeRoute'
-                : '',
-            ]"
-            v-for="route in $router.options.routes"
-            :key="route.path"
-            :to="route.path"
-          >
-            <router-link class="d-flex px-2" :to="route.path">
-              <div class="" v-if="shown">{{ route.name }}</div>
-            </router-link>
-          </li>
-          <hr />
-         <li class="routerlink px-2 pb-1" title="For links which do not trigger the vue router to change => redirect to other website">other links</li>
-        </div>
+      <li
+        :class="[
+          'routerlink',
+          'px-2',
+          'pb-1',
+          currentRouteName == route.name ||
+          (route.name != 'Utils' && $route.path.includes(route.path))
+            ? 'activeRoute'
+            : '',
+        ]"
+        v-for="route in $router.options.routes"
+        :key="route.path"
+        :to="route.path"
+      >
+        <router-link class="d-flex px-2" :to="route.path">
+          <div class="" v-if="shown">{{ route.name }}</div>
+        </router-link>
+      </li>
+      <hr />
+      <li
+        class="routerlink px-2 pb-1"
+        title="For links which do not trigger the vue router to change => redirect to other website"
+      >
+        other links
+      </li>
+    </div>
 
-        <div class="pointer position-absolute w-100 p-2" style="bottom: 0px" @click="shown = !shown">
-          <img
-            src="../../assets/icons/double_right.svg"
-            class="pb-2"
-            width="15"
-            alt=""
-            v-if="shown == false"
-          />
-         
-        </div>
-      
-   
+    <div
+      class="pointer position-absolute w-100 p-2"
+      style="bottom: 0px"
+      @click="shown = !shown"
+    >
+      <img
+        src="../../assets/icons/double_right.svg"
+        class="pb-2"
+        width="15"
+        alt=""
+        v-if="shown == false"
+      />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
+import { Options, Vue } from "vue-class-component";
 @Options({})
 export default class MenuHorizontal extends Vue {
   shown = true;
@@ -60,19 +72,19 @@ export default class MenuHorizontal extends Vue {
   background-color: #3a9d6d;
   height: max-content;
 }
-.logo{
+.logo {
   font-size: 1.5rem;
 }
 
-.h-100{
-  height:100%
+.h-100 {
+  height: 100%;
 }
 
 .menu {
   width: 100%;
   border-radius: 5px;
   box-shadow: rgb(143, 76, 76);
-    display: flex;
+  display: flex;
   flex-direction: row;
 }
 
@@ -84,7 +96,6 @@ export default class MenuHorizontal extends Vue {
   list-style: none;
   font-size: 1.2rem;
   align-self: flex-end !important;
-
 }
 
 .routerlink:hover {
