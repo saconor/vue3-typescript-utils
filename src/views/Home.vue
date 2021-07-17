@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home w-100">
     <div class="">
       <h3>Switch Element</h3>
       <Switch
@@ -83,7 +83,7 @@
       </div>
     
    <h3>Cards</h3>
-    <Card :cardData="cardData" :additionalCss="'width:20rem' "/>
+    <Card :cardData="cardData" :additionalCss="'width:20rem' " rounded/>
     <div class="props">
         <ul>
           <li>enable dark mode with attribute dark</li>
@@ -105,7 +105,7 @@ import TabSwitch from "../components/tab-switcher/TabSwitch.vue";
 import { TabSelector } from "../components/tab-switcher/tabSwitch";
 import DateTimePicker from "../components/dateTimePicker/DateTimePicker.vue";
 import Card from "../components/cards/Card.vue";
-import {CardObject} from "@/components/cards/cards"
+import {CardObject, IconPlacement} from "@/components/cards/cards"
 
 import dayjs, { Dayjs } from "dayjs";
 
@@ -131,7 +131,8 @@ export default class Home extends Vue {
     return {
       header:{
         title:"Test Header",
-      },
+        iconUrl:"https://static.thenounproject.com/png/256152-200.png",
+        iconPlacement:2      },
       body:{
         text:"This is a sample text",
         additionalData:[ {key:"test",value:"test"},{key:"test2",value:"test2"},{key:"test3",value:"test3"}],

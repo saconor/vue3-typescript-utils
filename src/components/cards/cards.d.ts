@@ -9,10 +9,12 @@ export interface CardObject {
         title: string,
         iconUrl?: string,
         iconPlacement?: IconPlacement
+        customCss?:string
     };
     body: {
         text: string
         additionalData?: { key: string, value: string }[]
+        customCss?:string
         additionalSections?: {
             text: string
             additionalData?: { key: string, value: string }[]
@@ -22,6 +24,7 @@ export interface CardObject {
         content: string,
         buttonFunktion?: (value: CardObject) => void
         buttonTitle?:string
+        customCss?:string
 
     };
     options?: any
